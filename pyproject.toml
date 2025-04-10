@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "gemini-code-helper"
+version = "1.0.0"
+description = ""
+authors = ["klebowski <klebowskimaciej@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+google-generativeai = "*"
+python-dotenv = "*"
+prompt_toolkit = "*"
+
+[tool.poetry.urls]
+source = "https://github.com/KlebowskiMaciej/gemini-code-helper"
+issues = "https://github.com/KlebowskiMaciej/gemini-code-helper/issues"
+
+[tool.poetry.scripts]
+gemini-code-helper = "gemini_code_helper:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -313,10 +313,20 @@ def main():
         logger.setLevel(logging.CRITICAL)
 
     global_env_path = os.path.join(os.path.expanduser("~"), ".gemini_config.env")
-    if not os.path.exists(global_env_path) or "GEMINI_API_KEY" not in os.environ:
-        api_key = input("Please enter your Gemini API Key (visit https://aistudio.google.com/apikey to generate one): ").strip()
+    if os.path.exists(global_env_path):
+        with open(global_env_path, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip() and not line.startswith("#"):
+                    key, value = line.strip().split("=", 1)
+                    os.environ[key] = value
+
+    if "GEMINI_API_KEY" not in os.environ:
+        api_key = input(
+            "Please enter your Gemini API Key (visit https://aistudio.google.com/apikey to generate one): ").strip()
+
         with open(global_env_path, "w", encoding="utf-8") as f:
             f.write(f"GEMINI_API_KEY={api_key}\n")
+
         os.environ["GEMINI_API_KEY"] = api_key
     else:
         load_dotenv(dotenv_path=global_env_path)
